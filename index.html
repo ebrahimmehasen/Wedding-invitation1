@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Invitation</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Configuration File -->
+    <script src="config.js"></script>
+
+    <div class="container">
+        <!-- Top Section -->
+        <header class="animate fade-down">
+            <p class="save-date">Save the Date</p>
+            <h1 class="wedding-text">Wedding</h1>
+            <h2 class="invitation-text">INVITATION</h2>
+            <h3 class="names-text"><span id="groom"></span> & <span id="bride"></span></h3>
+        </header>
+
+        <!-- Center Image Section -->
+        <div class="image-section animate zoom-in delay-1">
+            <div class="image-wrapper">
+                <img id="bg-image" src="" alt="Wedding Hands">
+            </div>
+        </div>
+
+        <!-- Details Section -->
+        <div class="details-section animate fade-up delay-1">
+            <div class="date-block">
+                <div class="line"></div>
+                <div class="day-name" id="day-name"></div>
+                <div class="date-circle">
+                    <span class="month" id="month"></span>
+                    <span class="day-num" id="day-num"></span>
+                </div>
+                <div class="time" id="time"></div>
+                <div class="line"></div>
+            </div>
+
+            <div class="location-info">
+                <p class="hotel" id="hotel-name"></p>
+                <p class="address"><i class="fas fa-map-marker-alt"></i> <span id="address"></span></p>
+            </div>
+
+            <!-- Countdown Timer -->
+            <div class="countdown-container animate fade-up delay-2">
+                <div class="countdown">
+                    <div class="time-box"><span id="days">00</span><p>Days</p></div>
+                    <div class="time-box"><span id="hours">00</span><p>Hours</p></div>
+                    <div class="time-box"><span id="minutes">00</span><p>Minutes</p></div>
+                    <div class="time-box"><span id="seconds">00</span><p>Seconds</p></div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons animate fade-up delay-3">
+                <button id="calendar-btn" class="btn btn-calendar"><i class="far fa-calendar-plus"></i> Add to Calendar</button>
+                <button id="map-btn" class="btn btn-map"><i class="fas fa-map-marked-alt"></i> Open Google Maps</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Script -->
+    <script src="app.js"></script>
+</body>
+</html>

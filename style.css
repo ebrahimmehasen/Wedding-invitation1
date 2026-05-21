@@ -1,0 +1,290 @@
+:root {
+    --primary-color: #1a1a1a;
+    --bg-color: #f8f9fa;
+    --font-script: 'Great Vibes', cursive;
+    --font-sans: 'Montserrat', sans-serif;
+    --transition: all 0.5s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--primary-color);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    max-width: 600px;
+    width: 100%;
+    min-height: 100vh;
+    background: #ffffff;
+    position: relative;
+    box-shadow: 0 0 30px rgba(0,0,0,0.05);
+    padding-bottom: 50px;
+}
+
+/* Header Text */
+header {
+    text-align: center;
+    padding: 60px 20px 20px;
+    z-index: 10;
+    position: relative;
+}
+
+.save-date {
+    font-size: 1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.wedding-text {
+    font-family: var(--font-script);
+    font-size: 6rem;
+    font-weight: 400;
+    line-height: 0.8;
+    margin-bottom: 10px;
+    color: #111;
+}
+
+.invitation-text {
+    font-size: 3.5rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    color: #000;
+}
+
+.names-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+/* Image Section */
+.image-section {
+    width: 100%;
+    height: 400px;
+    position: relative;
+    overflow: hidden;
+    margin: 30px 0;
+}
+
+/* Add a soft gradient mask to blend the image edges */
+.image-wrapper {
+    width: 100%;
+    height: 100%;
+    mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+}
+
+.image-section img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transform: scale(1);
+    transition: transform 5s ease-in-out;
+}
+
+.image-section:hover img {
+    transform: scale(1.05);
+}
+
+/* Details Section */
+.details-section {
+    text-align: center;
+    padding: 0 30px;
+}
+
+.date-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 40px 0;
+    gap: 20px;
+}
+
+.line {
+    height: 2px;
+    background-color: var(--primary-color);
+    flex-grow: 1;
+    max-width: 120px;
+}
+
+.day-name, .time {
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    min-width: 90px;
+}
+
+.date-circle {
+    border: 3px solid var(--primary-color);
+    border-radius: 30px;
+    padding: 15px 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    min-width: 90px;
+}
+
+.date-circle .month {
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+.date-circle .day-num {
+    font-weight: 800;
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.location-info {
+    margin-bottom: 40px;
+}
+
+.location-info .hotel {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+}
+
+.location-info .address {
+    font-size: 1rem;
+    color: #444;
+}
+
+.location-info i {
+    margin-right: 5px;
+}
+
+/* Countdown */
+.countdown-container {
+    background: #fff;
+    border-radius: 15px;
+    padding: 25px;
+    margin: 40px auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    max-width: 100%;
+}
+
+.countdown {
+    display: flex;
+    justify-content: space-around;
+}
+
+.time-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.time-box span {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.time-box p {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #666;
+    margin-top: 5px;
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 40px;
+    align-items: center;
+}
+
+.btn {
+    width: 90%;
+    padding: 16px 20px;
+    border-radius: 30px;
+    border: none;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-calendar {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-calendar:hover {
+    background-color: #333;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.btn-map {
+    background-color: white;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.btn-map:hover {
+    background-color: #f0f0f0;
+    transform: translateY(-3px);
+}
+
+/* Animations */
+.animate {
+    /* Removed initial opacity to ensure visibility if animation doesn't trigger */
+}
+
+.fade-down {
+    animation: fadeDown 1s ease forwards;
+}
+
+.fade-up {
+    animation: fadeUp 1s ease forwards;
+}
+
+.zoom-in {
+    animation: zoomIn 1.5s ease forwards;
+}
+
+@keyframes fadeDown {
+    0% { opacity: 0; transform: translateY(-30px); visibility: visible; }
+    100% { opacity: 1; transform: translateY(0); visibility: visible; }
+}
+
+@keyframes fadeUp {
+    0% { opacity: 0; transform: translateY(30px); visibility: visible; }
+    100% { opacity: 1; transform: translateY(0); visibility: visible; }
+}
+
+@keyframes zoomIn {
+    0% { opacity: 0; transform: scale(0.95); visibility: visible; }
+    100% { opacity: 1; transform: scale(1); visibility: visible; }
+}
+
+/* Delays */
+.delay-1 { animation-delay: 0.3s; }
+.delay-2 { animation-delay: 0.6s; }
+.delay-3 { animation-delay: 0.9s; }
