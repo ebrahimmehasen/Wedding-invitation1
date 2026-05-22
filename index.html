@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wedding Invitation</title>
+    <meta name="description" content="You're invited to celebrate the wedding! Save the date and join us for this special occasion.">
+
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- CSS -->
@@ -15,25 +17,47 @@
     <!-- Configuration File -->
     <script src="config.js"></script>
 
+    <!-- Floating Particles -->
+    <canvas id="particles-canvas"></canvas>
+
     <div class="container">
-        <!-- Top Section -->
+
+        <!-- Decorative Top Ornament -->
+        <div class="ornament top-ornament animate fade-down">
+            <svg viewBox="0 0 200 30" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,15 Q50,0 100,15 Q150,30 200,15" stroke="currentColor" fill="none" stroke-width="1" opacity="0.4"/>
+                <circle cx="100" cy="15" r="3" fill="currentColor" opacity="0.5"/>
+                <circle cx="80" cy="10" r="1.5" fill="currentColor" opacity="0.3"/>
+                <circle cx="120" cy="20" r="1.5" fill="currentColor" opacity="0.3"/>
+            </svg>
+        </div>
+
+        <!-- Header Section -->
         <header class="animate fade-down">
             <p class="save-date">Save the Date</p>
             <h1 class="wedding-text">Wedding</h1>
             <h2 class="invitation-text">INVITATION</h2>
+            <div class="names-divider">
+                <span class="divider-line"></span>
+                <span class="heart-icon"><i class="fas fa-heart"></i></span>
+                <span class="divider-line"></span>
+            </div>
             <h3 class="names-text"><span id="groom"></span> & <span id="bride"></span></h3>
         </header>
 
-        <!-- Center Image Section -->
+        <!-- Hero Image Section -->
         <div class="image-section animate zoom-in delay-1">
             <div class="image-wrapper">
                 <img id="bg-image" src="" alt="Wedding Hands">
             </div>
+            <div class="image-overlay"></div>
         </div>
 
-        <!-- Details Section -->
-        <div class="details-section animate fade-up delay-1">
-            <div class="date-block">
+        <!-- Event Details Section -->
+        <div class="details-section">
+
+            <!-- Date Block -->
+            <div class="date-block animate fade-up delay-1">
                 <div class="line"></div>
                 <div class="day-name" id="day-name"></div>
                 <div class="date-circle">
@@ -44,27 +68,96 @@
                 <div class="line"></div>
             </div>
 
-            <div class="location-info">
+            <!-- Location Info (clickable to open Google Maps) -->
+            <div class="location-info animate fade-up delay-2" id="location-link" role="button" tabindex="0" aria-label="Open location in Google Maps">
                 <p class="hotel" id="hotel-name"></p>
-                <p class="address"><i class="fas fa-map-marker-alt"></i> <span id="address"></span></p>
+                <p class="address">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span id="address"></span>
+                </p>
+                <span class="map-hint"><i class="fas fa-external-link-alt"></i> Tap to view on map</span>
             </div>
 
             <!-- Countdown Timer -->
             <div class="countdown-container animate fade-up delay-2">
+                <p class="countdown-label">Counting Down To The Big Day</p>
                 <div class="countdown">
-                    <div class="time-box"><span id="days">00</span><p>Days</p></div>
-                    <div class="time-box"><span id="hours">00</span><p>Hours</p></div>
-                    <div class="time-box"><span id="minutes">00</span><p>Minutes</p></div>
-                    <div class="time-box"><span id="seconds">00</span><p>Seconds</p></div>
+                    <div class="time-box">
+                        <div class="time-value-wrap">
+                            <span id="days">00</span>
+                        </div>
+                        <p>Days</p>
+                    </div>
+                    <div class="time-separator">:</div>
+                    <div class="time-box">
+                        <div class="time-value-wrap">
+                            <span id="hours">00</span>
+                        </div>
+                        <p>Hours</p>
+                    </div>
+                    <div class="time-separator">:</div>
+                    <div class="time-box">
+                        <div class="time-value-wrap">
+                            <span id="minutes">00</span>
+                        </div>
+                        <p>Minutes</p>
+                    </div>
+                    <div class="time-separator">:</div>
+                    <div class="time-box">
+                        <div class="time-value-wrap">
+                            <span id="seconds">00</span>
+                        </div>
+                        <p>Seconds</p>
+                    </div>
                 </div>
             </div>
 
-            <!-- Action Buttons -->
-            <div class="action-buttons animate fade-up delay-3">
-                <button id="calendar-btn" class="btn btn-calendar"><i class="far fa-calendar-plus"></i> Add to Calendar</button>
-                <button id="map-btn" class="btn btn-map"><i class="fas fa-map-marked-alt"></i> Open Google Maps</button>
+            <!-- Calendar Buttons -->
+            <div class="calendar-section animate fade-up delay-3">
+                <p class="section-label">Add To Your Calendar</p>
+                <div class="calendar-buttons">
+                    <button id="google-cal-btn" class="btn btn-google" aria-label="Add to Google Calendar">
+                        <i class="fab fa-google"></i>
+                        <span>Google Calendar</span>
+                    </button>
+                    <button id="apple-cal-btn" class="btn btn-apple" aria-label="Add to Apple Calendar">
+                        <i class="fab fa-apple"></i>
+                        <span>Apple Calendar</span>
+                    </button>
+                    <button id="outlook-cal-btn" class="btn btn-outlook" aria-label="Add to Outlook Calendar">
+                        <i class="fab fa-microsoft"></i>
+                        <span>Outlook</span>
+                    </button>
+                </div>
             </div>
+
+            <!-- Map Button -->
+            <div class="map-section animate fade-up delay-3">
+                <button id="map-btn" class="btn btn-map" aria-label="Open venue location in Google Maps">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <span>Open in Google Maps</span>
+                </button>
+            </div>
+
         </div>
+
+        <!-- Bottom Ornament -->
+        <div class="ornament bottom-ornament animate fade-up delay-3">
+            <svg viewBox="0 0 200 30" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,15 Q50,30 100,15 Q150,0 200,15" stroke="currentColor" fill="none" stroke-width="1" opacity="0.4"/>
+                <circle cx="100" cy="15" r="3" fill="currentColor" opacity="0.5"/>
+            </svg>
+        </div>
+
+        <!-- Footer -->
+        <footer class="animate fade-up delay-3">
+            <p class="footer-text">We can't wait to celebrate with you!</p>
+            <div class="footer-hearts">
+                <i class="fas fa-heart"></i>
+                <i class="fas fa-heart"></i>
+                <i class="fas fa-heart"></i>
+            </div>
+        </footer>
     </div>
 
     <!-- Application Script -->
