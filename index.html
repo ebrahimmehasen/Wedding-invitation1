@@ -4,70 +4,579 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wedding Invitation</title>
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- CSS -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --text-color: #000000;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: linear-gradient(to bottom, #ffffff 0%, #f0f2f4 40%, #e2e5e8 80%, #d1d5d8 100%);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-color);
+            /* تأثير ظهور لكامل الصفحة عند التحميل */
+            opacity: 0;
+            animation: fadeInBody 1s ease-in forwards;
+        }
+
+        /* -------------------------------------
+           ANIMATION KEYFRAMES 
+           ------------------------------------- */
+        @keyframes fadeInBody {
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.92); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes scaleLine {
+            to { transform: scaleX(1); }
+        }
+
+        @keyframes subtleZoom {
+            from { transform: scale(1); }
+            to { transform: scale(1.08); }
+        }
+
+        /* -------------------------------------
+           STYLES 
+           ------------------------------------- */
+        .invitation-card {
+            width: 100%;
+            max-width: 500px;
+            padding: 40px 20px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .save-the-date {
+            font-weight: 400;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            z-index: 10;
+            opacity: 0;
+            animation: fadeInDown 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s forwards;
+        }
+
+        .titles {
+            text-align: center;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .wedding {
+            font-family: 'Great Vibes', cursive;
+            font-size: 7.5rem;
+            line-height: 0.5;
+            font-weight: 400;
+            position: relative;
+            z-index: 2;
+            margin-bottom: -12px;
+            opacity: 0;
+            animation: fadeInScale 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.5s forwards;
+        }
+
+        .invitation-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 3.8rem;
+            letter-spacing: -2px;
+            line-height: 1;
+            position: relative;
+            z-index: 1;
+            margin-bottom: 15px;
+            opacity: 0;
+            animation: fadeInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.7s forwards;
+        }
+
+        .names {
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: 0px;
+            opacity: 0;
+            animation: fadeInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.9s forwards;
+        }
+
+        .image-container {
+            width: 120%; 
+            margin: 15px -10%;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            z-index: 0;
+            height: 350px;
+            opacity: 0;
+            animation: fadeInScale 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) 1.1s forwards;
+            overflow: hidden; /* لمنع الصورة من الخروج أثناء الزووم */
+        }
+
+        .hands-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            mix-blend-mode: multiply;
+            filter: grayscale(100%) opacity(0.6);
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
+            mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
+            /* تأثير زووم بطيء واحترافي مستمر */
+            animation: subtleZoom 20s ease-out 1.2s forwards;
+        }
+
+        .date-widget {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 90%;
+            margin: 0 auto 30px;
+            position: relative;
+            z-index: 10;
+            opacity: 0;
+            animation: fadeInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) 1.3s forwards;
+        }
+
+        .date-side {
+            flex: 1;
+            height: 42px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .line {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 1.5px;
+            background-color: var(--text-color);
+            /* الخطوط ترسم نفسها من المنتصف */
+            transform: scaleX(0);
+            transform-origin: center;
+            animation: scaleLine 1s cubic-bezier(0.2, 0.8, 0.2, 1) 1.6s forwards;
+        }
+        .line-top { top: 0; }
+        .line-bottom { bottom: 0; }
+
+        .date-side span {
+            font-weight: 800;
+            font-size: 1.05rem;
+            letter-spacing: 0.5px;
+        }
+
+        .date-center {
+            width: 65px;
+            height: 75px;
+            border: 2px solid var(--text-color);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            background-color: transparent;
+            /* تفاعل جميل عند لمس التاريخ */
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+        }
+
+        .date-center:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            background-color: #ffffff;
+        }
+
+        .date-center .month {
+            font-weight: 800;
+            font-size: 0.95rem;
+            margin-bottom: 2px;
+        }
+
+        .date-center .day {
+            font-weight: 900;
+            font-size: 1.6rem;
+            line-height: 1;
+        }
+
+        .venue-info {
+            text-align: center;
+            margin-bottom: 30px;
+            z-index: 10;
+            opacity: 0;
+            animation: fadeInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) 1.5s forwards;
+        }
+
+        .venue-name {
+            font-weight: 400;
+            font-size: 1.05rem;
+            margin-bottom: 5px;
+        }
+
+        .venue-address {
+            font-weight: 400;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .venue-address:hover {
+            transform: translateY(-2px);
+        }
+
+        .features-section {
+            width: 100%;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            padding-top: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 10;
+            opacity: 0;
+            animation: fadeInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) 1.8s forwards;
+        }
+
+        .countdown {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .countdown div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-weight: 800;
+            font-size: 1.5rem;
+        }
+
+        .countdown small {
+            font-size: 0.6rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .buttons button, .buttons a {
+            padding: 10px 20px;
+            border: 1.5px solid var(--text-color);
+            background: transparent;
+            color: var(--text-color);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-decoration: none;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* تأثير ملء الزر باللون الأسود بسلاسة */
+        .buttons button::after, .buttons a::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--text-color);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            z-index: -1;
+        }
+        
+        .buttons button:hover::after, .buttons a:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .buttons button:hover, .buttons a:hover {
+            color: #fff;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+        .modal-content {
+            background-color: #fff;
+            padding: 30px;
+            border: 2px solid #000;
+            text-align: center;
+            width: 300px;
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+        .modal-btn {
+            display: block; width: 100%; margin-bottom: 10px;
+        }
+        .close-modal {
+            margin-top: 10px; font-size: 0.8rem; text-decoration: underline; cursor: pointer; transition: color 0.2s;
+        }
+        .close-modal:hover { color: #888; }
+
+        @media (max-width: 480px) {
+            .wedding { font-size: 5.5rem; }
+            .invitation-text { font-size: 2.8rem; letter-spacing: -1.5px; }
+            .names { font-size: 1.2rem; }
+            .date-widget { width: 100%; }
+            .image-container { height: 280px; }
+        }
+    </style>
 </head>
 <body>
-    <!-- Configuration File -->
-    <script src="config.js"></script>
 
-    <div class="container">
-        <!-- Top Section -->
-        <header class="animate fade-down">
-            <p class="save-date">Save the Date</p>
-            <h1 class="wedding-text">Wedding</h1>
-            <h2 class="invitation-text">INVITATION</h2>
-            <h3 class="names-text"><span id="groom"></span> & <span id="bride"></span></h3>
-        </header>
-
-        <!-- Center Image Section -->
-        <div class="image-section animate zoom-in delay-1">
-            <div class="image-wrapper">
-                <img id="bg-image" src="" alt="Wedding Hands">
+    <div class="invitation-card">
+        
+        <div class="save-the-date">Save the Date</div>
+        
+        <div class="titles">
+            <div class="wedding">Wedding</div>
+            <div class="invitation-text">INVITATION</div>
+            <div class="names" id="names-display"></div>
+        </div>
+        
+        <div class="image-container">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=800" class="hands-img" alt="hands">
+        </div>
+        
+        <div class="date-widget">
+            <div class="date-side">
+                <div class="line line-top"></div>
+                <div class="line line-bottom"></div>
+                <span id="day-of-week-display"></span>
+            </div>
+            <div class="date-center">
+                <span class="month" id="month-display"></span>
+                <span class="day" id="day-display"></span>
+            </div>
+            <div class="date-side">
+                <div class="line line-top"></div>
+                <div class="line line-bottom"></div>
+                <span id="time-display-widget"></span>
+            </div>
+        </div>
+        
+        <div class="venue-info">
+            <div class="venue-name" id="venue-name-display"></div>
+            <div class="venue-address">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--text-color)" style="transition: transform 0.3s ease;">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/>
+                </svg>
+                <span id="venue-address-display"></span>
             </div>
         </div>
 
-        <!-- Details Section -->
-        <div class="details-section animate fade-up delay-1">
-            <div class="date-block">
-                <div class="line"></div>
-                <div class="day-name" id="day-name"></div>
-                <div class="date-circle">
-                    <span class="month" id="month"></span>
-                    <span class="day-num" id="day-num"></span>
-                </div>
-                <div class="time" id="time"></div>
-                <div class="line"></div>
+        <div class="features-section">
+            <div class="countdown" id="countdown">
+                <div><span id="cd-days">00</span><small>DAYS</small></div>
+                <div><span id="cd-hours">00</span><small>HRS</small></div>
+                <div><span id="cd-minutes">00</span><small>MIN</small></div>
+                <div><span id="cd-seconds">00</span><small>SEC</small></div>
             </div>
+            <div class="buttons">
+                <button id="calendar-btn" style="z-index: 1;">Add to Calendar</button>
+                <a id="map-btn" href="#" target="_blank" style="z-index: 1;">View on Map</a>
+            </div>
+        </div>
 
-            <div class="location-info">
-                <p class="hotel" id="hotel-name"></p>
-                <p class="address"><i class="fas fa-map-marker-alt"></i> <span id="address"></span></p>
-            </div>
+    </div>
 
-            <!-- Countdown Timer -->
-            <div class="countdown-container animate fade-up delay-2">
-                <div class="countdown">
-                    <div class="time-box"><span id="days">00</span><p>Days</p></div>
-                    <div class="time-box"><span id="hours">00</span><p>Hours</p></div>
-                    <div class="time-box"><span id="minutes">00</span><p>Minutes</p></div>
-                    <div class="time-box"><span id="seconds">00</span><p>Seconds</p></div>
-                </div>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="action-buttons animate fade-up delay-3">
-                <button id="calendar-btn" class="btn btn-calendar"><i class="far fa-calendar-plus"></i> Add to Calendar</button>
-                <button id="map-btn" class="btn btn-map"><i class="fas fa-map-marked-alt"></i> Open Google Maps</button>
-            </div>
+    <!-- Calendar Modal -->
+    <div class="modal" id="calendar-modal">
+        <div class="modal-content">
+            <h3 style="margin-bottom:15px; font-weight:700;">Select Calendar</h3>
+            <a href="#" class="buttons" style="display:block; margin-bottom:10px; border:1.5px solid #000; padding:10px; text-decoration:none; color:#000; font-weight:600; position:relative; overflow:hidden; z-index:1;" id="google-cal-btn" target="_blank">Google Calendar</a>
+            <a href="#" class="buttons" style="display:block; margin-bottom:10px; border:1.5px solid #000; padding:10px; text-decoration:none; color:#000; font-weight:600; position:relative; overflow:hidden; z-index:1;" id="apple-cal-btn">Apple / iCal</a>
+            <div class="close-modal" id="close-modal-btn">Cancel</div>
         </div>
     </div>
 
-    <!-- Application Script -->
-    <script src="app.js"></script>
+    <script>
+        // ==========================================
+        // إعدادات المتغيرات (يمكنك تغييرها من هنا)
+        // ==========================================
+        let groomName = "Connor";
+        let brideName = "Claudia";
+        
+        let weddingYear = 2026;
+        let weddingMonth = 4; // 4 = مايو
+        let weddingDay = 25;
+        let weddingHour = 10;
+        let weddingMinute = 0;
+        
+        let venueName = "Borcelle Hotel";
+        let venueAddress = "123 Anywhere St., Any City";
+        let googleMapsLink = ""; 
+        // ==========================================
+
+        const weddingDate = new Date(weddingYear, weddingMonth, weddingDay, weddingHour, weddingMinute);
+
+        document.getElementById('names-display').textContent = `${groomName} & ${brideName}`.toUpperCase();
+        document.getElementById('venue-name-display').textContent = venueName;
+        document.getElementById('venue-address-display').textContent = venueAddress;
+
+        const daysOfWeek = ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"];
+        document.getElementById('day-of-week-display').textContent = daysOfWeek[weddingDate.getDay()];
+
+        const months = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
+        document.getElementById('month-display').textContent = months[weddingDate.getMonth()];
+        
+        document.getElementById('day-display').textContent = weddingDate.getDate();
+
+        let hours = weddingDate.getHours();
+        let minutes = weddingDate.getMinutes();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12;
+        const minutesStr = minutes < 10 && minutes > 0 ? '0' + minutes : (minutes === 0 ? '' : ':' + minutes);
+        document.getElementById('time-display-widget').textContent = `AT ${hours}${minutesStr} ${ampm}`;
+
+        const mapBtn = document.getElementById('map-btn');
+        if (googleMapsLink && googleMapsLink.trim() !== "") {
+            mapBtn.href = googleMapsLink;
+        } else {
+            mapBtn.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venueName + " " + venueAddress)}`;
+        }
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = weddingDate.getTime() - now;
+
+            if (distance < 0) {
+                document.getElementById('cd-days').textContent = "00";
+                document.getElementById('cd-hours').textContent = "00";
+                document.getElementById('cd-minutes').textContent = "00";
+                document.getElementById('cd-seconds').textContent = "00";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('cd-days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('cd-hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('cd-minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('cd-seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        function formatCalDate(date) {
+            return date.toISOString().replace(/-|:|\.\d\d\d/g, "");
+        }
+
+        const endDate = new Date(weddingDate);
+        endDate.setHours(endDate.getHours() + 2);
+
+        const eventTitle = `Wedding of ${groomName} & ${brideName}`;
+        const eventLocation = `${venueName}, ${venueAddress}`;
+        const eventDetails = `You are invited to the wedding of ${groomName} and ${brideName}.`;
+
+        const googleCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(eventTitle)}&dates=${formatCalDate(weddingDate)}/${formatCalDate(endDate)}&details=${encodeURIComponent(eventDetails)}&location=${encodeURIComponent(eventLocation)}`;
+        document.getElementById('google-cal-btn').href = googleCalUrl;
+
+        const icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Wedding Invitation//EN
+BEGIN:VEVENT
+UID:${new Date().getTime()}@wedding
+DTSTAMP:${formatCalDate(new Date())}
+DTSTART:${formatCalDate(weddingDate)}
+DTEND:${formatCalDate(endDate)}
+SUMMARY:${eventTitle}
+DESCRIPTION:${eventDetails}
+LOCATION:${eventLocation}
+END:VEVENT
+END:VCALENDAR`;
+
+        const icsDataUri = `data:text/calendar;charset=utf8,${encodeURIComponent(icsContent)}`;
+        const appleBtn = document.getElementById('apple-cal-btn');
+        appleBtn.href = icsDataUri;
+        appleBtn.setAttribute('download', 'wedding-invitation.ics');
+
+        // Modal Logic with smooth animation
+        const modal = document.getElementById('calendar-modal');
+        document.getElementById('calendar-btn').addEventListener('click', () => {
+            modal.style.display = 'flex';
+            // Trigger reflow to ensure transition works
+            setTimeout(() => { modal.classList.add('active'); }, 10);
+        });
+        document.getElementById('close-modal-btn').addEventListener('click', () => {
+            modal.classList.remove('active');
+            setTimeout(() => { modal.style.display = 'none'; }, 300); // Wait for transition
+        });
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                setTimeout(() => { modal.style.display = 'none'; }, 300);
+            }
+        });
+
+        // Add hover styles to modal buttons dynamically to reuse CSS
+        const modalBtns = document.querySelectorAll('#calendar-modal .buttons');
+        modalBtns.forEach(btn => {
+            btn.addEventListener('mouseenter', () => {
+                btn.style.color = '#fff';
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.color = '#000';
+            });
+        });
+
+    </script>
 </body>
 </html>
