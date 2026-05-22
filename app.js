@@ -1,6 +1,91 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // ════════════════════════════════════════
+    // 0. Splash Screen & Background Music
+    // ════════════════════════════════════════
+    const splashScreen = document.getElementById('splash-screen');
+    const splashEnterBtn = document.getElementById('splash-enter-btn');
+    const musicToggle = document.getElementById('music-toggle');
+    const musicIcon = document.getElementById('music-icon');
+    const bgMusic = document.getElementById('bg-music');
+
+    // Set music source from config
+    bgMusic.src = CONFIG.musicFile;
+
+    // Populate splash screen names
+    document.getElementById('splash-groom').textContent = CONFIG.groomName;
+    document.getElementById('splash-bride').textContent = CONFIG.brideName;
+
+    let isMusicPlaying = false;
+
+    // Enter the invitation & play music
+    splashEnterBtn.addEventListener('click', () => {
+        // Start music
+        bgMusic.volume = 0;
+        bgMusic.play().then(() => {
+            isMusicPlaying = true;
+            // Fade in volume smoothly
+            let vol = 0;
+            const fadeIn = setInterval(() => {
+                vol += 0.05;
+                if (vol >= 0.7) {
+                    vol = 0.7;
+                    clearInterval(fadeIn);
+                }
+                bgMusic.volume = vol;
+            }, 80);
+        }).catch(() => {
+            // Browser blocked autoplay — that's ok, user can use toggle
+            console.log('Music autoplay was blocked by browser.');
+        });
+
+        // Hide splash with animation
+        splashScreen.classList.add('hidden');
+
+        // Show music toggle button after splash fades
+        setTimeout(() => {
+            musicToggle.classList.add('visible');
+        }, 800);
+    });
+
+    // Music toggle button
+    musicToggle.addEventListener('click', () => {
+        if (isMusicPlaying) {
+            // Fade out
+            let vol = bgMusic.volume;
+            const fadeOut = setInterval(() => {
+                vol -= 0.05;
+                if (vol <= 0) {
+                    vol = 0;
+                    bgMusic.pause();
+                    clearInterval(fadeOut);
+                }
+                bgMusic.volume = vol;
+            }, 50);
+            isMusicPlaying = false;
+            musicToggle.classList.add('muted');
+            musicIcon.className = 'fas fa-volume-mute';
+        } else {
+            bgMusic.volume = 0;
+            bgMusic.play().then(() => {
+                // Fade in
+                let vol = 0;
+                const fadeIn = setInterval(() => {
+                    vol += 0.05;
+                    if (vol >= 0.7) {
+                        vol = 0.7;
+                        clearInterval(fadeIn);
+                    }
+                    bgMusic.volume = vol;
+                }, 80);
+                isMusicPlaying = true;
+                musicToggle.classList.remove('muted');
+                musicIcon.className = 'fas fa-volume-up';
+            }).catch(() => {});
+        }
+    });
+
+    // ════════════════════════════════════════
     // 1. Populate UI from CONFIG
     // ════════════════════════════════════════
     document.getElementById('groom').textContent = CONFIG.groomName;

@@ -17,8 +17,42 @@
     <!-- Configuration File -->
     <script src="config.js"></script>
 
+    <!-- Welcome Splash Screen (triggers music on tap) -->
+    <div id="splash-screen" class="splash-screen">
+        <div class="splash-content">
+            <div class="splash-ornament">
+                <svg viewBox="0 0 200 30" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0,15 Q50,0 100,15 Q150,30 200,15" stroke="currentColor" fill="none" stroke-width="1" opacity="0.5"/>
+                </svg>
+            </div>
+            <p class="splash-subtitle">You Are Invited</p>
+            <h1 class="splash-title">Wedding</h1>
+            <div class="splash-names"><span id="splash-groom"></span> & <span id="splash-bride"></span></div>
+            <div class="splash-btn-wrap">
+                <button id="splash-enter-btn" class="splash-enter-btn">
+                    <i class="fas fa-music"></i>
+                    <span>Open Invitation</span>
+                </button>
+            </div>
+            <p class="splash-hint">Tap to enter with music</p>
+            <div class="splash-ornament bottom">
+                <svg viewBox="0 0 200 30" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0,15 Q50,30 100,15 Q150,0 200,15" stroke="currentColor" fill="none" stroke-width="1" opacity="0.5"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+
     <!-- Floating Particles -->
     <canvas id="particles-canvas"></canvas>
+
+    <!-- Music Toggle Button -->
+    <button id="music-toggle" class="music-toggle" aria-label="Toggle music">
+        <i class="fas fa-volume-up" id="music-icon"></i>
+        <div class="music-bars" id="music-bars">
+            <span></span><span></span><span></span><span></span>
+        </div>
+    </button>
 
     <div class="container">
 
@@ -159,6 +193,9 @@
             </div>
         </footer>
     </div>
+
+    <!-- Background Music -->
+    <audio id="bg-music" loop preload="auto"></audio>
 
     <!-- Application Script -->
     <script src="app.js"></script>

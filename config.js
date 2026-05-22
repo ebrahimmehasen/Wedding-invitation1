@@ -55,4 +55,12 @@ const CONFIG = {
         description: "Join us to celebrate the wedding of Connor and Claudia!",
         durationHours: 4,
     },
+
+    // ─────────────────────────────────────────────
+    // 6. BACKGROUND MUSIC
+    //    - musicFile: Path to your music file (mp3, wav, ogg)
+    //      Place your music file in the same folder, then write the name here.
+    //      Example: "song.mp3"
+    // ─────────────────────────────────────────────
+    musicFile: "music.mp3",
 };
